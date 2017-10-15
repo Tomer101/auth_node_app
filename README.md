@@ -23,3 +23,5 @@ $ npm install
 Run app
 
 $ npm start
+
+run your browser on localhost:3000
