@@ -47,7 +47,8 @@ app.get('/', function(req, res){
     res.render('home');
 });
 
-app.get("/users_only", (req, res)=>{
+//User_only route page
+app.get("/users_only", isLoggedIn, (req, res)=>{
     res.render("users_only");
 });
 
@@ -84,8 +85,19 @@ app.post('/login', passport.authenticate('local',{
 }) ,function(req, res){
 });
 
+//Logout route
+app.get('/logout', (req, res)=>{
+    req.logout();
+    res.redirect('/');
+});
 
 
+function isLoggedIn(req, res, next){
+    if(req.isAuthenticated()){
+        return next();
+    }
+    res.redirect('/login');
+}
 app.listen(3000, function(){
     console.log('server is running on port 3000...');
 });
